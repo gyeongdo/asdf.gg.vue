@@ -17,9 +17,9 @@ module.exports = {
     }, {
       hid: 'ogtype', property: 'og:type', content: 'website',
     }, {
-      hid: 'ogimage', property: 'og:image', content: 'https://vue.nodebird.com/vue-nodebird.png',
+      hid: 'ogimage', property: 'og:image', content: 'https://asdf.gg/vue-nodebird.png',
     }, {
-      hid: 'ogurl', property: 'og:url', content: 'https://vue.nodebird.com',
+      hid: 'ogurl', property: 'og:url', content: 'https://asdf.gg',
     }],
     link: [{ rel: 'shortcut icon', href: '/vue-nodebird.png' }],
   },
@@ -44,10 +44,10 @@ module.exports = {
   },
   vuetify: {},
   axios: {
-    browserBaseURL: process.env.NODE_ENV === 'production' ? 'https://api.nodebird.com/api' : 'http://localhost:3085',
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://api.nodebird.com/api' : 'http://localhost:3085',
+    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.asdf.gg' : 'http://localhost:3085',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://api.asdf.gg' : 'http://localhost:3085',
     https: false,
-  },
+  }, 
   server: {
     port: process.env.PORT || 3081,
   },

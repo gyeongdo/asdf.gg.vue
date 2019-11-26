@@ -28,7 +28,7 @@ if (prod) {
   app.use(hpp());
   app.use(morgan('combined'));
   app.use(cors({
-    origin: 'http://vue.nodebird.com',
+    origin: 'http://asdf.gg',
     credentials: true,
   }));
 } else {
@@ -42,16 +42,16 @@ if (prod) {
 app.use('/', express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookie('121212'));
+app.use(cookie(process.env.COOKIE_SECRET));
 app.use(session({
   resave: false,
   saveUninitialized: false,
   // secret: process.env.COOKIE_SECRET,
-  secret: '121212',
+  secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
     secure: false,
-    domain: prod && '.nodebird.com',
+    domain: prod && '.asdf.gg',
   },
 }));
 app.use(passport.initialize());
