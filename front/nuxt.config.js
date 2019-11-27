@@ -9,11 +9,11 @@ module.exports = {
     }, {
       'http-equiv': 'X-UA-Compatible', content: 'IE=edge',
     }, {
-      hid: 'desc', name: 'description', content: '제로초의 NodeBird SNS',
+      hid: 'desc', name: 'description', content: 'veneziar.com에 오신것을 환영합니다',
     }, {
       hid: 'ogtitle', name: 'og:title', content: 'NodeBird',
     }, {
-      hid: 'ogdesc', name: 'og:description', content: '제로초의 NodeBird SNS',
+      hid: 'ogdesc', name: 'og:description', content: 'veneziar.com에 오신것을 환영합니다',
     }, {
       hid: 'ogtype', property: 'og:type', content: 'website',
     }, {

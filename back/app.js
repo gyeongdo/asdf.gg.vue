@@ -58,7 +58,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.status(200).send('안녕 제로초');
+  res.status(200).send('veneziar.com');
 });
 
 app.use('/user', userRouter);
