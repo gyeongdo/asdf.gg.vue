@@ -28,7 +28,7 @@ if (prod) {
   app.use(hpp());
   app.use(morgan('combined'));
   app.use(cors({
-    origin: 'http://asdf.gg',
+    origin: 'http://veneziar.com',
     credentials: true,
   }));
 } else {
@@ -51,7 +51,7 @@ app.use(session({
   cookie: {
     httpOnly: true,
     secure: false,
-    domain: prod && '.asdf.gg',
+    domain: prod && '.veneziar.com',
   },
 }));
 app.use(passport.initialize());

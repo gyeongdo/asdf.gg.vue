@@ -3,7 +3,7 @@
     <nav>
       <v-toolbar>
         <v-toolbar-title>  
-          <nuxt-link to="/">ASDF.GG</nuxt-link>
+          <nuxt-link to="/">veneziar.com</nuxt-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         

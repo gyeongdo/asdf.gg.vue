@@ -17,9 +17,9 @@ module.exports = {
     }, {
       hid: 'ogtype', property: 'og:type', content: 'website',
     }, {
-      hid: 'ogimage', property: 'og:image', content: 'https://asdf.gg/vue-nodebird.png',
+      hid: 'ogimage', property: 'og:image', content: 'http://veneziar.com/vue-nodebird.png',
     }, {
-      hid: 'ogurl', property: 'og:url', content: 'https://asdf.gg',
+      hid: 'ogurl', property: 'og:url', content: 'http://veneziar.com',
     }],
     link: [{ rel: 'shortcut icon', href: '/vue-nodebird.png' }],
   },
@@ -44,8 +44,8 @@ module.exports = {
   },
   vuetify: {},
   axios: {
-    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.asdf.gg' : 'http://localhost:3085',
-    baseURL: process.env.NODE_ENV === 'production' ? 'http://api.asdf.gg' : 'http://localhost:3085',
+    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:3085',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:3085',
     https: false,
   }, 
   server: {
