@@ -1,6 +1,6 @@
 module.exports = {
   head: {
-    title: 'NodeBird',
+    title: 'veneziar',
     meta: [{
       charset: 'utf-8',
     }, {
@@ -11,7 +11,7 @@ module.exports = {
     }, {
       hid: 'desc', name: 'description', content: 'veneziar.com에 오신것을 환영합니다',
     }, {
-      hid: 'ogtitle', name: 'og:title', content: 'NodeBird',
+      hid: 'ogtitle', name: 'og:title', content: 'Veneziar',
     }, {
       hid: 'ogdesc', name: 'og:description', content: 'veneziar.com에 오신것을 환영합니다',
     }, {

@@ -169,7 +169,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-vue-nodebird.pem
 asdf.gg.pem
 asdfgg.pem
 uploads

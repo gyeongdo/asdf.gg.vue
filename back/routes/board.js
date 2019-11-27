@@ -18,7 +18,7 @@ const router = express.Router();
 // const upload = multer({
 //   storage: multerS3({
 //     s3: new AWS.S3(),
-//     bucket: 'vue-nodebird',
+//     bucket: 'vue-asdf',
 //     key(req, file, cb) {
 //       cb(null, `original/${Date.now()}${path.basename(file.originalname)}`)
 //     },
