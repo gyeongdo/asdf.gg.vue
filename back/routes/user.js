@@ -39,7 +39,6 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/', isNotLoggedIn, async (req, res, next) => { // 회원가입
-  console.log('151515^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
   try {
     const hash = await bcrypt.hash(req.body.password, 12);
     const exUser = await db.User.findOne({
@@ -104,10 +103,71 @@ router.post('/', isNotLoggedIn, async (req, res, next) => { // 회원가입
   }
 });
 
-router.post('/login', isNotLoggedIn, (req, res, next) => {
+// router.post('/login', isNotLoggedIn, (req, res, next) => {
 
-  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@###########');
+//   passport.authenticate('local', (err, user, info) => {
+//     if (err) {
+//       console.error(err);
+//       return next(err);
+//     }
+//     if (info) {
+//       return res.status(401).send(info.reason);
+//     }
+//     return req.login(user, async (err) => { // 세션에다 사용자 정보 저장 (어떻게? serializeUser)
+//       if (err) {
+//         console.error(err);
+//         return next(err);
+//       }
+//       const fullUser = await db.User.findOne({
+//         where: { id: user.id },
+//         attributes: ['id', 'userId', 'nickname'],
+//         include: [{
+//           model: db.Post,
+//           attributes: ['id'],
+//         }, {
+//           model: db.User,
+//           as: 'Followings',
+//           attributes: ['id'],
+//         }, {
+//           model: db.User,
+//           as: 'Followers',
+//           attributes: ['id'],
+//         }],
+//       });
+//       return res.json(fullUser);
+//     });
+//   })(req, res, next);
+// });
 
+// router.post('/login', isNotLoggedIn, async function(req, res) {
+
+//   console.log('req.body.userId :: ', req.body.userId);
+//   req.session.key=req.body.userId;
+  
+//   var user = {
+//     id:req.body.userId  
+//   }
+//   const fullUser = await db.User.findOne({
+//     where: { userId: user.id },
+//     attributes: ['id', 'userId', 'nickname'],
+//     include: [{
+//       model: db.Post,
+//       attributes: ['id'],
+//     }, {
+//       model: db.User,
+//       as: 'Followings',
+//       attributes: ['id'],
+//     }, {
+//       model: db.User,
+//       as: 'Followers',
+//       attributes: ['id'],
+//     }],
+//   });
+
+//   return res.json(fullUser);
+// });
+
+router.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       console.error(err);
@@ -126,6 +186,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
         attributes: ['id', 'userId', 'nickname'],
         include: [{
           model: db.Post,
+          as: 'Posts',
           attributes: ['id'],
         }, {
           model: db.User,
@@ -141,6 +202,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
     });
   })(req, res, next);
 });
+
 
 router.post('/logout', isLoggedIn, (req, res) => { // 실제 주소는 /user/logout
   if (req.isAuthenticated()) {

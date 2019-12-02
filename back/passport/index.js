@@ -32,5 +32,7 @@ module.exports = () => {
       return done(err);
     }
   });
+
   local();
+  
 };

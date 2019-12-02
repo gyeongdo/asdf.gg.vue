@@ -2,85 +2,123 @@
   <v-app id="inspire">
     <nav>
       <v-toolbar>
+        <!-- 좌측 홈 링크 -->
         <v-toolbar-title>  
           <nuxt-link to="/">veneziar.com</nuxt-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        
-        <v-toolbar-items class="hidden-sm-and-down">
+        <!-- 좌측 홈 링크 -->
+
+        <!-- 우측 큰 웹화면 메뉴 -->
+        <v-toolbar-items 
+          class="hidden-sm-and-down"
+        >
+        <template v-for="item in items">
           <v-btn
-            v-for="item in items"
+             v-if="item.title !== 'login'"
             :key="item.icon"
-            :to="item.link"
+            :to="item.url"
             text
+            class="btn-span"
           >{{ item.title }}</v-btn>
+
+          <!-- <v-btn
+             v-if="item.title === 'login'"
+            :key="item.icon"
+            :to="item.url"
+            text
+            class="btn-span"
+            @click="loginDialog()"
+          >
+          {{ isLogin }}
+          </v-btn> -->
+
+          <v-btn
+             v-if="item.title === 'login'"
+            :key="item.icon"
+            :to="item.url"
+            text
+            class="btn-span"
+            @click="loginDialog()"
+          >
+          {{ isLogin }}
+          </v-btn>
+            
+        </template>
         </v-toolbar-items>
+        <!-- 우측 큰 웹화면 메뉴 -->
 
-        <v-menu bottom left>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                dark
-                icon
-                v-on="on"
-                color="black"
-              >
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-
-            <v-list>
-              <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-              >
-                <v-btn text nuxt :to="item.url" :style="{ display: 'flex', alignItems: 'center' }">
-                  {{ item.title }}
+        <!-- 우측 드랍다운 메뉴 -->
+        <template>
+          <v-menu bottom left>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  dark
+                  icon
+                  v-on="on"
+                  color="black"
+                  class="hidden-md-and-up"
+                >
+                  <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+              </template>
+
+              <v-list>
+                <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i"
+                >
+                  <v-btn v-if="item.title !== 'login'" text nuxt :to="item.url" :style="{ display: 'flex', alignItems: 'center' }">
+                    {{ item.title }}
+                  </v-btn>
+                  <v-btn v-else text :style="{ display: 'flex', alignItems: 'center' }" @click="loginDialog()">
+                    {{ isLogin }} 
+                  </v-btn>
+
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </template>
+          <!-- 우측 드랍다운 메뉴 -->
 
       </v-toolbar>
 
-      <!-- <v-toolbar dark color="darkgrey">
-        <v-toolbar-title>
-          <nuxt-link to="/">asdf.gg</nuxt-link>
-        </v-toolbar-title>
+      <v-dialog
+        v-model="dialog3"
+        max-width="500px"
+      >
+        <v-card>
+          <v-card-title>
+            <span>Login</span>
+            <v-spacer></v-spacer>
+            <login-form />
+          </v-card-title>
+          <v-card-actions>
+            <v-btn
+              color="primary"
+              text
+              @click="loginDialog()"
+            >
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-          <v-spacer />
-
-        <v-toolbar-items>
-          <v-form @submit.prevent="onSearchHashtag">
-            <div :style="{ display: 'flex', height: '100%', alignItems: 'center' }">
-              <v-text-field
-                v-model="hashtag"
-                label="검색"
-                hide-details
-                prepend-icon="mdi-magnify"
-              />
-            </div>
-          </v-form>
-          <v-btn text nuxt to="/profile" :style="{ display: 'flex', alignItems: 'center' }">
-            <div>프로필</div>
-          </v-btn>
-          <v-btn text nuxt to="/signup" :style="{ display: 'flex', alignItems: 'center' }">
-            <div>회원가입</div>
-          </v-btn>
-        </v-toolbar-items>
-
-      </v-toolbar> -->
     </nav>
 
     <!-- 메인 -->
     <v-row no-gutters>
       
-      <v-col cols="12" md="2">
-        <login-form />
-      </v-col>
+      <!-- <v-col cols="12" md="2">
+      </v-col> -->
       
-      <v-col cols="12" md="10">
+      <v-col cols="12" md="12">
         <nuxt />
       </v-col>
+
+      <!-- <v-col cols="12" md="2">
+      </v-col> -->
       
     </v-row>
 
@@ -131,12 +169,16 @@
     },
     data() {
       return {
+        dialog3: false,
+
         hashtag: '',
          items: [
           { title: 'profile', url: '/profile' },
           { title: 'signup', url: '/signup' },
           { title: 'board', url: '/board' },
-          // { title: 'Click Me4' },
+          { title: 'login', },
+
+          // { title: 'login', @click="dialog3 = !dialog3" },
         ],
       };
     },
@@ -147,8 +189,34 @@
         });
         this.hashtag = '';
       },
+      loginDialog() {
+        if( this.me ) {
+          this.$router.push({
+            path: '/mypage',
+          });
+        } else {
+          this.dialog3 = !this.dialog3
+        }
+      },
+      // isLogin() {
+      //   if( this.me ){
+      //     return 'Mypage';
+      //   } {
+      //     return 'Login';
+      //   }
+      // }
     },
     computed: {
+      isLogin() {
+        if( this.me ){
+          return 'Mypage';
+        } {
+          return 'Login';
+        }
+      },
+      me() {
+        return this.$store.state.users.me;
+      },
       icon () { 
         return require('@/static/icon/email-24px.svg') 
       },
@@ -167,7 +235,7 @@
 
 <style scoped>
   a {
-    display: inline-block;
+    /* display: inline-block; */
     text-decoration: none;
     color: inherit;
   }
@@ -176,4 +244,5 @@
     padding-right: 5px;
     width: 30px;
   }
+
 </style>

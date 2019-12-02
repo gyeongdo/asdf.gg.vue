@@ -3,6 +3,7 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const cookie = require('cookie-parser');
+const redis = require('./redis.js');
 const morgan = require('morgan');
 const hpp = require('hpp');
 const helmet = require('helmet');
@@ -39,6 +40,9 @@ if (prod) {
   }));
 }
 
+//redis
+RedisStore = require('connect-redis')(session);
+
 app.use('/', express.static('uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -47,6 +51,18 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   // secret: process.env.COOKIE_SECRET,
+  store: new RedisStore({
+    client:redis,
+    host: 'localhost',
+    port: '6379',
+    prefix: 'session',
+    db: 0,
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 // 쿠키 유효기간 1시간
+    }
+  }),
   secret: process.env.COOKIE_SECRET,
   cookie: {
     httpOnly: true,
@@ -58,7 +74,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
-  res.status(200).send('veneziar.com');
+  // res.status(200).send('veneziar.com');
+  console.log('req.session.key ::::: ', req.session.key);
+  // 세션값이 있으면 
+  if(req.session.key) { 
+    res.status(200).send('veneziar.com');
+  } else { // 없으면 홈으로 이동 
+
+  }
 });
 
 app.use('/user', userRouter);

@@ -25,8 +25,9 @@ const upload = multer({
   }),
   limit: { fileSize: 20 * 1024 * 1024 },
 });
+
 router.post('/images', isLoggedIn, upload.array('image'), (req, res) => {
-  console.log(req.files);
+  console.log('req.files :::: ', req.files);
   res.json(req.files.map(v => v.location));
 });
 

@@ -10,6 +10,7 @@ module.exports = () => {
   }, async (userId, password, done) => {
     try {
       const exUser = await db.User.findOne({ where: { userId } });
+      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@passport local.js@@@@@@@@@@@@@@');
       if (!exUser) {
         return done(null, false, { reason: '존재하지 않는 사용자입니다.' });
       }

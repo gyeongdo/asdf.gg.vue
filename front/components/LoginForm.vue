@@ -1,6 +1,5 @@
 <template>
   <v-container v-if="!me">
-    <v-card>
       <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
         <v-container>
           <v-text-field
@@ -20,7 +19,6 @@
           <v-btn nuxt to="/signup">회원가입</v-btn>
         </v-container>
       </v-form>
-    </v-card>
   </v-container>
   
   <v-container v-else>
