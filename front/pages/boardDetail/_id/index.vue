@@ -1,7 +1,7 @@
 <template>
     <v-container>
-      <h2>게시판 상세</h2>
-      <board-detail-card />
+      <h2 v-if="boardDetail">게시판 상세</h2>
+      <board-detail-card :boardDetail="boardDetail"/>
     </v-container>
 </template>
 
@@ -19,19 +19,17 @@ export default {
       }
     },
     mounted() {
-      // const url = this.$route.params.id;
-      // this.$store.dispatch('boardDetail/boardDetail', { postId : url});
-    },
-    fetch({ store, params }) {
-      const url = params.id;
-      return store.dispatch('boardDetail/boardDetail', { postId : url});
+    
     },
     computed: {
       boardDetail() {
-        console.log('boardDetail props2 :: ', this.$store.state.boardDetail.boardDetail);
-        this.$store.state.boardDetail.boardDetail;
+        return this.$store.state.boardDetail.boardDetail;
       }
-    }
+    },
+    fetch({ store, params }) {
+      const paramsId = params.id;
+      return store.dispatch('boardDetail/boardDetail', { postId : paramsId});
+    },
   }
 </script>
 

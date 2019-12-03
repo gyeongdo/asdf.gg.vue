@@ -2,76 +2,77 @@
 <v-container>
   <v-form
     ref="form"
-    v-model="valid"
     lazy-validation
     @submit.prevent="onSubmitForm"
   >
+
     <v-text-field
-      v-model="name"
-      :counter="10"
+      label="Id"
+      disabled
+      :value="boardDetail.id"
+    ></v-text-field>
+    
+    <v-text-field
       :rules="nameRules"
       label="Name"
+      v-model="name"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="calories"
-      :counter="10"
-      :rules="nameRules"
       label="Calories"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="fat"
-      :counter="10"
-      :rules="nameRules"
       label="Fat"
       required
     ></v-text-field>
 
     <v-text-field
-      v-model="carbs"
-      :counter="10"
-      :rules="nameRules"
       label="Carbs"
+      v-model="carbs"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="protein"
-      :rules="nameRules"
       label="Protein"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="iron"
-      :rules="nameRules"
       label="iron"
       required
     ></v-text-field>
 
-    <!-- <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Iron"
-      required
-    ></v-select> -->
+    <v-text-field
+      label="userId"
+      readonly
+      :value="boardDetail.UserId"
+    ></v-text-field>
 
-    <v-checkbox
-      v-model="checkbox"
-      :rules="[v => !!v || 'You must agree to continue!']"
-      label="Do you agree?"
-      required
-    ></v-checkbox>
+    <v-text-field
+      label="createdAt"
+      readonly
+      :value="$moment(boardDetail.createdAt).format('YYYY-MM-DD HH:mm:ss')"
+    ></v-text-field>
+
+    <v-text-field
+      label="updatedAt"
+      readonly
+      :value="$moment(boardDetail.updatedAt).format('YYYY-MM-DD HH:mm:ss')"
+    ></v-text-field>
 
     <v-btn
       type="submit"
       :disabled="!valid"
       color="success"
       class="mr-4"
+      v-if="me.id === boardDetail.UserId"
     >
       작성
     </v-btn>
@@ -99,24 +100,31 @@
 <script>
 
   export default {
-  
+    props: {
+      boardDetail: {
+        type:Object,
+        required: true,
+      }
+    },
     methods: {
       onSubmitForm() {
         if (! this.$store.state.users.me) {
             alert('로그인 후 이용 가능합니다.');
             return;
-          }
+        }
+        const id = this.boardDetail.id;
+        
         if (this.$refs.form.validate() ) {
-          this.$store.dispatch('board/post', {
-            name: this.name,
-            calories: this.calories,
-            fat: this.fat,
-            carbs: this.carbs,
-            protein: this.protein,
-            iron: this.iron,
+          this.$store.dispatch('boardDetail/boardUpdate', {
+            id:id,
+            name:this.name,
+            calories:this.calories,
+            fat:this.fat,
+            carbs:this.carbs,
+            protein:this.protein,
+            iron:this.iron,
           });
         }
-        this.reset();
       },
       validate () {
         if (this.$refs.form.validate()) {
@@ -135,27 +143,19 @@
     data() {
       return {
         valid: true,
-        name: '',
-        calories: '',
-        fat: '',
-        carbs: '',
-        protein: '',
-        iron: '',
+        name: this.boardDetail.name,
+        calories: this.boardDetail.calories,
+        fat: this.boardDetail.fat,
+        carbs: this.boardDetail.carbs,
+        protein: this.boardDetail.protein,
+        iron: this.boardDetail.iron,
         nameRules: [
-          v => !!v || 'Name is required',
           v => (v && v.length <= 10) || 'Name must be less than 10 characters',
         ],
         emailRules: [
-          v => !!v || 'E-mail is required',
           v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
         ],
         select: null,
-        items: [
-          '1',
-          '2',
-          '3',
-          '4',
-        ],
         checkbox: false,
       }
     },
