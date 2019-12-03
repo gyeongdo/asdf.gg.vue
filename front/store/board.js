@@ -11,7 +11,7 @@ export const mutations = {
     },
     addMainBoard(state, payload) {
         state.mainBoards.boards.unshift(payload);
-    }
+    },
 }
 
 export const actions = {
@@ -34,7 +34,6 @@ export const actions = {
                 console.log(err);
             });           
     },
-    
     // boards 테이블 조회
     async loadBoards({ commit, state}, payload) {
         try {
@@ -44,6 +43,4 @@ export const actions = {
             console.error(err);
           }  
     }
-    
-
 }

@@ -101,5 +101,4 @@ router.get('/boards', async (req, res, next) => {
   }
 });
 
-
 module.exports = router;

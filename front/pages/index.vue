@@ -26,7 +26,6 @@
         return this.$store.state.users.me;
       },
       mainPosts() {
-        console.log('mainPosts');
         return this.$store.state.posts.mainPosts;
       },
       hasMorePost() {
