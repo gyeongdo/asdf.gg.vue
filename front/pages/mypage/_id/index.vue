@@ -1,5 +1,6 @@
 <template>
   <mypage-form/>
+  
 </template>
 
 <script>

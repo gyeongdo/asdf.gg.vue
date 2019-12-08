@@ -12,6 +12,17 @@ export const mutations = {
     addMainBoard(state, payload) {
         state.mainBoards.boards.unshift(payload);
     },
+    removeBoards(state, payload) {
+        console.log('removeBoardsMutation payload1', payload.params);
+        
+        payload.params.forEach(p => {
+            console.log('foreach : ');
+            const index = state.mainBoards.boards.findIndex(v => v.id === p.params);
+            console.log('index : ', index);
+            return state.mainBoards.boards.splice(index, 1);
+        });
+
+    },
 }
 
 export const actions = {
@@ -42,5 +53,19 @@ export const actions = {
           } catch (err) {
             console.error(err);
           }  
+    },
+    // board 테이블 삭제
+    async deleteBoards({commit, state}, payload) {
+        try{
+            this.$axios.delete('/board/delete',payload,{ withCredentials: true,})
+            .then(() => {
+                commit('removeBoards', payload);
+              })
+            .catch(() => {
+
+            });
+        } catch(err) {
+            console.log(err);
+        }
     }
 }

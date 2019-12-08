@@ -176,6 +176,7 @@
           { title: 'profile', url: '/profile' },
           { title: 'signup', url: '/signup' },
           { title: 'board', url: '/board' },
+          { title: 'match', url: '/match' },
           { title: 'login', },
 
           // { title: 'login', @click="dialog3 = !dialog3" },

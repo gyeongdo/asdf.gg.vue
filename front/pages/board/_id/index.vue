@@ -5,6 +5,9 @@
       
       <div>
         <v-data-table
+          v-model="selected"
+          :single-select="singleSelect"
+           show-select
           :headers="headers"
           :items="desserts"
           :search="search"
@@ -14,7 +17,49 @@
           class="elevation-1"
           @click:row="selectRow"
         >
-          <template slot="items" slot-scope="props">
+
+          <template v-slot:top>
+            <v-toolbar flat color="white">
+              <v-toolbar-title>My CRUD</v-toolbar-title>
+              <v-spacer></v-spacer>
+              
+              <v-dialog v-model="dialog" max-width="500px">
+                <template v-slot:activator="{ on }">
+                  <v-btn v-if="me" color="primary" dark class="mb-2" v-on="on">삭제</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">title</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col cols="12" sm="6" md="4">
+                          <v-text-field 
+                            v-for="select in selected"
+                            v-bind:key="select.id"
+                            :value="select.id"
+                            disabled 
+                          />
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" text @click="close">취소</v-btn>
+                    <v-btn color="blue darken-1" text @click="del">삭제</v-btn>
+                  </v-card-actions>
+
+                </v-card>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+
+          <template slot="items" slot-scope="props" >
             <tr>
               <td >{{ props.item.name }}</td>
               <td class="text-xs-right">{{ props.item.calories }}</td>
@@ -43,6 +88,9 @@
     },
     data () {
       return {
+        dialog: false,
+        singleSelect: false,
+        selected: [],
         search: '',
         totalDesserts: 100,
         desserts: [],
@@ -75,6 +123,11 @@
     //   console.log('fetch1');
     //   return this.$store.dispatch('board/loadBoards', { params : this.params});
     // },
+    computed: {
+      me() {
+        return this.$store.state.users.me;
+      },
+    },
     watch: {
       options: {
         handler () {
@@ -97,6 +150,24 @@
         })
     },
     methods: {
+      close () {
+        this.dialog = false
+        // setTimeout(() => {
+        //   this.editedItem = Object.assign({}, this.defaultItem)
+        //   this.editedIndex = -1
+        // }, 300)
+      },
+      async del(){
+        
+        const delId = this.selected.map(v =>{
+          return v.id
+        })
+
+        await this.$store.dispatch('board/deleteBoards', {params: delId})
+          .then(()=> {
+            this.close();
+          });
+      },
       async selectRow(event) {
         this.$router.push({
           path:`/boardDetail/${event.id}`

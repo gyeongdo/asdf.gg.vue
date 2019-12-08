@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
@@ -81,7 +82,7 @@ app.get('/', (req, res) => {
   if(req.session.key) { 
     res.status(200).send('veneziar.com');
   } else { // 없으면 홈으로 이동 
-
+    
   }
 });
 

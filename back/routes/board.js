@@ -1,4 +1,5 @@
 const express = require('express');
+const _ = require('lodash');
 const multer = require('multer');
 const path = require('path');
 // const AWS = require('aws-sdk');
@@ -60,7 +61,6 @@ router.post('/', async (req, res, next) => { // POST /post
 });
 // 글 조회
 router.get('/boards', async (req, res, next) => {
-  console.log('@@@@@@@@@@boards@@@@@@@@', req.query);
   try {
     // let pageNum = req.query.page; // 요청 페이지 넘버
     let pageNum = req.query.page; // 요청 페이지 넘버
@@ -82,7 +82,7 @@ router.get('/boards', async (req, res, next) => {
       desc = req.query.sortDesc[0] === 'false' ? 'DESC': 'ASC' ;
     } 
 
-    const boards = await db.Board.findAll({
+    const boards = await db.Board.findAll({  
       offset: offset,
       limit: parseInt(limit),
       order: [[sortBy, desc]],
@@ -97,6 +97,27 @@ router.get('/boards', async (req, res, next) => {
 
   } catch (err) {
     console.log(err);
+    next(err);
+  }
+});
+
+//게시판 삭제
+router.delete('/delete', async (req, res, next) => {
+  const delId = [];
+  _.forEach(req.query, function(value, key){
+    delId.push(value);
+  });
+
+
+  try {
+    await db.Board.destroy({
+      where: {
+        id: delId
+      },
+    });
+    res.send('삭제했습니다.');
+  } catch (err) {
+    console.error(err);
     next(err);
   }
 });

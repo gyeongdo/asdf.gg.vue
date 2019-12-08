@@ -1,105 +1,112 @@
 <template>
-<v-container>
-  <v-form
-    ref="form"
-    lazy-validation
-    @submit.prevent="onSubmitForm"
-  >
-
-    <v-text-field
-      label="Id"
-      disabled
-      :value="boardDetail.id"
-    ></v-text-field>
-    
-    <v-text-field
-      :rules="nameRules"
-      label="Name"
-      v-model="name"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="calories"
-      label="Calories"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="fat"
-      label="Fat"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      label="Carbs"
-      v-model="carbs"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="protein"
-      label="Protein"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="iron"
-      label="iron"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      label="userId"
-      readonly
-      :value="boardDetail.UserId"
-    ></v-text-field>
-
-    <v-text-field
-      label="createdAt"
-      readonly
-      :value="$moment(boardDetail.createdAt).format('YYYY-MM-DD HH:mm:ss')"
-    ></v-text-field>
-
-    <v-text-field
-      label="updatedAt"
-      readonly
-      :value="$moment(boardDetail.updatedAt).format('YYYY-MM-DD HH:mm:ss')"
-    ></v-text-field>
-
-    <v-btn
-      type="submit"
-      :disabled="!valid"
-      color="success"
-      class="mr-4"
-      v-if="me.id === boardDetail.UserId"
+  <v-container v-if="me">
+    <v-form
+      ref="form"
+      lazy-validation
+      @submit.prevent="onSubmitForm"
     >
-      작성
-    </v-btn>
 
-    <v-btn
-      color="error"
-      class="mr-4"
-      @click="reset"
-    >
-      Reset Form
-    </v-btn>
+      <v-text-field
+        label="Id"
+        disabled
+        :value="boardDetail.id"
+      ></v-text-field>
+      
+      <v-text-field
+        :rules="nameRules"
+        label="Name"
+        v-model="name"
+        required
+      ></v-text-field>
 
-    <v-btn
-      color="warning"
-      @click="resetValidation"
-    >
-      Reset Validation
-    </v-btn>
-  </v-form>
-</v-container>
+      <v-text-field
+        v-model="calories"
+        label="Calories"
+        required
+      ></v-text-field>
 
+      <v-text-field
+        v-model="fat"
+        label="Fat"
+        required
+      ></v-text-field>
 
+      <v-text-field
+        label="Carbs"
+        v-model="carbs"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="protein"
+        label="Protein"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        v-model="iron"
+        label="iron"
+        required
+      ></v-text-field>
+
+      <v-text-field
+        label="userId"
+        readonly
+        :value="boardDetail.UserId"
+      ></v-text-field>
+
+      <v-text-field
+        label="createdAt"
+        readonly
+        :value="$moment(boardDetail.createdAt).format('YYYY-MM-DD HH:mm:ss')"
+      ></v-text-field>
+
+      <v-text-field
+        label="updatedAt"
+        readonly
+        :value="$moment(boardDetail.updatedAt).format('YYYY-MM-DD HH:mm:ss')"
+      ></v-text-field>
+
+      <v-btn
+        type="submit"
+        :disabled="!valid"
+        color="success"
+        class="mr-4"
+        v-if="me.id === boardDetail.UserId"
+      >
+        작성
+      </v-btn>
+
+      <v-btn
+        color="error"
+        class="mr-4"
+        @click="reset"
+      >
+        Reset Form
+      </v-btn>
+
+      <v-btn
+        color="warning"
+        @click="resetValidation"
+      >
+        Reset Validation
+      </v-btn>
+    </v-form>
+  </v-container>
+  <v-container v-else>
+    <h4>로그인 후 이용 가능합니다</h4>
+    <login-form />
+  </v-container>
 </template>
 
 <script>
 
+  import LoginForm from '~/components/LoginForm';
+  
   export default {
+    components: {
+      LoginForm
+    },
     props: {
       boardDetail: {
         type:Object,
