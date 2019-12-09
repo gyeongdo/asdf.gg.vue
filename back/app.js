@@ -19,6 +19,7 @@ const postsRouter = require('./routes/posts');
 const hashtagRouter = require('./routes/hashtag');
 const boardRouter = require('./routes/board');
 const boardDetailRouter = require('./routes/boardDetail');
+const matchRouter = require('./routes/match');
 
 const app = express();
 
@@ -92,6 +93,8 @@ app.use('/posts', postsRouter);
 app.use('/hashtag', hashtagRouter);
 app.use('/board', boardRouter);
 app.use('/boardDetail', boardDetailRouter);
+app.use('/match', matchRouter);
+
 app.listen(prod ? process.env.PORT : 3085, () => {
   console.log(`백엔드 서버 ${prod ? process.env.PORT : 3085}번 포트에서 작동중.`);
 });

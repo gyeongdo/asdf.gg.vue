@@ -16,8 +16,8 @@ export const mutations = {
         console.log('removeBoardsMutation payload1', payload.params);
         
         payload.params.forEach(p => {
-            console.log('foreach : ');
-            const index = state.mainBoards.boards.findIndex(v => v.id === p.params);
+            console.log('foreach : ', p);
+            const index = state.mainBoards.boards.findIndex(v => v.id === p);
             console.log('index : ', index);
             return state.mainBoards.boards.splice(index, 1);
         });
