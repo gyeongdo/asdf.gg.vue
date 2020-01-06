@@ -15,7 +15,7 @@
           @input="onChangeTextarea"
         />
         <v-btn type="submit" color="green" absolute right>짹짹</v-btn>
-        <input ref="imageInput" type="file" multiple hidden @change="onChangeImages">
+        <input ref="imageInput" name="Filedata" type="file" multiple hidden @change="onChangeImages">
         <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
         <div>
           <div v-for="(p, i) in imagePaths" :key="p" style="display: inline-block">

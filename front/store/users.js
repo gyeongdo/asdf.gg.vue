@@ -58,6 +58,10 @@ export const mutations = {
   },
 };
 
+
+
+
+
 export const actions = {
   async loadUser({ state, commit }) {
     console.log('loadUser');

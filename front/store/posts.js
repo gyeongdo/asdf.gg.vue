@@ -29,13 +29,14 @@ export const mutations = {
     state.mainPosts = [payload];
   },
   loadPosts(state, payload) {
-    console.log('loadPosts222');
     if (payload.reset) {
       state.mainPosts = payload.data;
+      // console.log('reset', state.mainPosts);
     } else {
+      console.log('else');
       state.mainPosts = state.mainPosts.concat(payload.data);
     }
-    state.hasMorePost = payload.data.length === 10;
+    // state.hasMorePost = payload.data.length === 10;
   },
   concatImagePaths(state, payload) {
     state.imagePaths = state.imagePaths.concat(payload);
@@ -59,13 +60,16 @@ export const mutations = {
 export const actions = {
   add({ commit, state }, payload) {
     // 서버에 게시글 등록 요청 보냄
-    this.$axios.post('/post', {
+    this.$axios.post('/api/posts', {
       content: payload.content,
-      image: state.imagePaths,
-    }, {
-      withCredentials: true,
-    })
+      // image: state.imagePaths,
+    }
+    // , {
+    //   // withCredentials: true,
+    // }
+    )
       .then((res) => {
+        console.log('res.data : ', res.data);
         commit('addMainPost', res.data);
       })
       .catch(() => {
@@ -109,6 +113,7 @@ export const actions = {
         console.error(err);
       });
   },
+
   async loadPost({ commit, state }, payload) {
     try {
       const res = await this.$axios.get(`/post/${payload}`);
@@ -122,16 +127,22 @@ export const actions = {
     console.log('loadPosts111');
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts?limit=10`);
+        // const res = await this.$axios.get(`/posts?limit=10`);
+        const res = await this.$axios.get(`/api/posts`);
+
+        // console.log('res.data : ', res.data);
+        // console.log('res.data : ', res.data._embedded.postList);
+
         commit('loadPosts', {
-          data: res.data,
+          // data: res.data,
+          data: res.data._embedded.postList,
           reset: true,
         });
         return;
       }
       if (state.hasMorePost) {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
-        const res = await this.$axios.get(`/posts?lastId=${lastPost && lastPost.id}&limit=10`);
+        const res = await this.$axios.get(`/posts?lastId=${lastPost && lastPost.id}&limit=2`);
         commit('loadPosts', {
           data: res.data,
         });

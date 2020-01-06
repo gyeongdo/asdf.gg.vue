@@ -76,16 +76,14 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/', (req, res) => {
-  // res.status(200).send('veneziar.com');
-  console.log('req.session.key ::::: ', req.session.key);
-  // 세션값이 있으면 
-  if(req.session.key) { 
-    res.status(200).send('veneziar.com');
-  } else { // 없으면 홈으로 이동 
-    
-  }
-});
+// app.get('/', (req, res) => {
+//   // res.status(200).send('veneziar.com');
+//   console.log('req.session.key ::::: ', req.session.key);
+//   // 세션값이 있으면 
+//   if(req.session.key) { 
+//     res.status(200).send('veneziar.com');
+//   } 
+// });
 
 app.use('/user', userRouter);
 app.use('/post', postRouter);

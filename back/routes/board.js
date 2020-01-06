@@ -61,6 +61,7 @@ router.post('/', async (req, res, next) => { // POST /post
 });
 // 글 조회
 router.get('/boards', async (req, res, next) => {
+  console.log('board get route');
   try {
     // let pageNum = req.query.page; // 요청 페이지 넘버
     let pageNum = req.query.page; // 요청 페이지 넘버
@@ -77,8 +78,6 @@ router.get('/boards', async (req, res, next) => {
 
     if(req.query.sortBy) {
       sortBy = req.query.sortBy[0];
-      console.log(req.query.sortDesc[0]);
-      console.log(req.query.sortDesc[0] === 'false');
       desc = req.query.sortDesc[0] === 'false' ? 'DESC': 'ASC' ;
     } 
 

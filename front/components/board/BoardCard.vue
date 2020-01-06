@@ -22,7 +22,7 @@
       required
     ></v-text-field>
 
-    <v-text-field
+    <!-- <v-text-field
       v-model="fat"
       :counter="10"
       :rules="nameRules"
@@ -50,7 +50,7 @@
       :rules="nameRules"
       label="iron"
       required
-    ></v-text-field>
+    ></v-text-field> -->
 
     <!-- <v-select
       v-model="select"
@@ -106,11 +106,6 @@
 </template>
 
 <script>
-
-  
-
-  // import CommentForm from '~/components/CommentForm';
-  // import PostContent from '~/components/PostContent';
 
   export default {
   

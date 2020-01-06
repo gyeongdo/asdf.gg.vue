@@ -1,17 +1,16 @@
 <template>
     <v-container>
-      <h2 v-if="boardDetail">게시판 상세</h2>
-      <board-detail-card :boardDetail="boardDetail"/>
+      <board-detail />
     </v-container>
 </template>
 
 <script>
 
-import BoardDetailCard from '~/components/board/BoardDetailCard';
+import BoardDetail from '~/components/board/BoardDetail';
 
 export default {
     components: {
-      BoardDetailCard
+      BoardDetail
     },
     data () {
       return {
@@ -22,14 +21,12 @@ export default {
     
     },
     computed: {
-      boardDetail() {
-        return this.$store.state.boardDetail.boardDetail;
-      }
+    
     },
-    fetch({ store, params }) {
-      const paramsId = params.id;
-      return store.dispatch('boardDetail/boardDetail', { postId : paramsId});
-    },
+    // fetch({ store, params }) {
+      // const paramsId = params.id;
+      // return store.dispatch('boardDetail/boardDetail', { postId : paramsId});
+    // },
   }
 </script>
 
