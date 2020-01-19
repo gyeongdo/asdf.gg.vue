@@ -1,7 +1,7 @@
 <template>
   <div>
-    <board-tableduple />
     <board-table :parentMessage="urlParam" />
+    <board-tableduple />
   </div>
 </template>
 

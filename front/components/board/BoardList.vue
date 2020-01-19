@@ -41,7 +41,15 @@
           {
             name: 'dogdrip',
             calories: 13,
-          }
+          },
+          {
+            name: 'theqoo',
+            calories: 'https://theqoo.net/hot?filter_mode=normal',
+          },
+          {
+            name: 'fmkorea',
+            calories: '15',
+          },
         ],
       }
     },

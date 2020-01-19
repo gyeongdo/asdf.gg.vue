@@ -79,12 +79,12 @@ export const actions = {
                 })
                 .then(()=> {
                     console.log('글작성 완료 후 : ', res.data);
-                    commit('removeBoards', payload);
+                    // commit('removeBoards', payload);
                 })
-                .catch(() => {
-
+                .catch(( err ) => {
+                    console.log('catch : ', err);
                 });
-
+            
         } catch(err) {
             console.log(err);
         }

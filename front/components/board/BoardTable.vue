@@ -62,7 +62,7 @@
           </template>
 
           <template v-slot:item.time="{ item }">
-            <span class="ma-2" small color="pink" label text-color="white">시간: {{item.time}}  추천: {{item.recomd}}</span>
+            <span class="ma-2" small label>시간: {{item.time}}  추천: {{item.recomd}}</span>
           </template>
 
 
@@ -156,7 +156,7 @@
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
-        
+        console.log('갱신');
         await this.$store.dispatch('board/getRefresh', { params: web, type})
           .then(()=> {
             const { sortBy, descending, page, rowsPerPage } = this.options
@@ -175,18 +175,18 @@
       // 중복 체크
       async getDuplicate(web) {
         this.loading = true;
-        
         await this.$store.dispatch('board/getDuplication', { params: this.selected[0].title, web })
         .then( () => {
             this.loading = false;
             console.log("kength : ", this.$store.state.board.checkDuplication.data.list);
             if (this.$store.state.board.checkDuplication.data.list.length == 0) {
-              console.log("중복 없음");
+              alert("중복 없음");
               this.save();
             } else {
               console.log('중복 있음')
             }
         });
+        this.selected = [];
       },
       replaceAll(str, searchStr, replaceStr) {
         return str.split('bbs').join('m');
@@ -230,6 +230,7 @@
         await this.$store.dispatch('board/getSelenium', { params })
           .then(()=>{
               this.selected = [];
+              this.dialog = false;
           });
       },
       async selectRow(event) {
@@ -239,7 +240,7 @@
       },
       async getDataFromApi () {
         this.loading = true
-        
+        console.log('새로고침');
         await this.$store.dispatch('board/loadBoards', { params : this.options, web: this.parentMessage })
           .then(()=>{
 

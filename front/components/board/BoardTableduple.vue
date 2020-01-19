@@ -30,7 +30,7 @@
         <li class="clear" v-for="list in checkDuplication.data.list" :key="list.name">	
           <div class="rt_area">		
             <h4>		
-              <a :href="list.url">
+              <a :href="list.url" target="_blank">
                 {{ list.title }}
               </a>	
             </h4>		
