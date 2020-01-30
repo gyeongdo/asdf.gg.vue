@@ -49,9 +49,10 @@
             <div>
               
               <template>
-                <v-text-field>
+                <v-text-field v-model="type">
                   <v-icon slot="append" color="red">mdi-plus</v-icon>
                 </v-text-field>
+                <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, '')">검색</v-btn>
               </template>
 
             </div>
@@ -89,6 +90,7 @@
     data () {
       return {
         dialog: false,
+        type:'',
         singleSelect: false,
         selected: [],
         search: '',
@@ -156,7 +158,14 @@
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
+        if(this.type == ''){
+          alert('검색어를 입력해주세요');
+          return false;
+        }
         console.log('갱신');
+        if( type == ''){
+            type = this.type
+        }
         await this.$store.dispatch('board/getRefresh', { params: web, type})
           .then(()=> {
             const { sortBy, descending, page, rowsPerPage } = this.options
