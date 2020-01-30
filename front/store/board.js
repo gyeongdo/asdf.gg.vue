@@ -92,8 +92,6 @@ export const actions = {
     // 배치 갱신
     async getRefresh({commit, stats}, payload) {
         try{
-            console.log('payload.params : ', payload.params );
-
             var convertPayload = {
                 params : {
                     page: 0,
@@ -118,7 +116,6 @@ export const actions = {
     // 중복 확인
     async getDuplication({ commit, stats }, payload) {
         try{
-            console.log('payload.params : ', payload );
             const search = {
                 title: payload.params
             };
