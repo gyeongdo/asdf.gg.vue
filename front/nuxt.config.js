@@ -47,7 +47,7 @@ module.exports = {
     browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://58.142.71.20' : 'http://58.142.71.20',
     // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:8080',
     
-    baseURL: process.env.NODE_ENV === 'production' ? 'http://58.142.71.83' : 'http://58.142.71.83',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://58.142.71.20' : 'http://58.142.71.20',
     // baseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:8080',
     https: false,
   }, 
