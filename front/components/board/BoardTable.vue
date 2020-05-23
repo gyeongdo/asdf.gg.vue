@@ -25,9 +25,9 @@
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on }">
                   <v-btn color="primary" style="margin: 3px" dark class="mb-2" v-on="on">등록</v-btn>
-                  <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="getDuplicate(parentMessage)">중복</v-btn>
+                  <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="save2()">미갤</v-btn>
                   <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, 'normal')">갱신</v-btn>
-                  <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, 'best')">일반</v-btn>
+                  <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="getDuplicate(parentMessage)">중복</v-btn>
                 </template>
               </v-dialog>
               
@@ -53,6 +53,7 @@
                   <v-icon slot="append" color="red">mdi-plus</v-icon>
                 </v-text-field>
                 <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, '')">검색</v-btn>
+                <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, 'best')">일반</v-btn>
               </template>
 
             </div>
@@ -158,21 +159,18 @@
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
-        console.log('갱신 : ', type == '');
 
+        
         if(type == '' && this.type == ''){
           alert('검색어를 입력해주세요');
           return false;
         } else if(type != '') {
-          console.log('type이  아닐 때 : ', type);
           this.type = '';
+          console.log('type1 : ', type);
         } else if (type == '') {
-          console.log('type이 일 때 : ', type);
           type = this.type;  
+          console.log('type2 : ', type);
         }
-
-        console.log('최종 type : ', type);
-
         await this.$store.dispatch('board/getRefresh', { params: web, type})
           .then(()=> {
             const { sortBy, descending, page, rowsPerPage } = this.options
@@ -225,7 +223,6 @@
         let selId = [];
         selId = this.selected.map(v => v.id);
         
-        console.log("selId : ", selId);
 
         let url = "";
         let title = "";
@@ -241,6 +238,39 @@
           web: this.parentMessage,
           title,
           url,
+          category : 'humor'
+        };
+
+        await this.$store.dispatch('board/getSelenium', { params })
+          .then(()=>{
+              this.selected = [];
+              this.dialog = false;
+          });
+      },
+      // 미갤 저장할 때
+      async save2() {
+        this.$store.state.board.checkDuplication = [];
+
+        var params = {};
+        let selId = [];
+        selId = this.selected.map(v => v.id);
+        
+
+        let url = "";
+        let title = "";
+        this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+            if(v.id === selId[0]) {
+              url = v.url;
+              title = v.title;
+            }
+        });
+
+        params = {
+          id: selId[0],
+          web: this.parentMessage,
+          title,
+          url,
+          category : 'mystery'
         };
 
         await this.$store.dispatch('board/getSelenium', { params })

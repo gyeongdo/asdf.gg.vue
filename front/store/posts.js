@@ -130,7 +130,7 @@ export const actions = {
         // const res = await this.$axios.get(`/posts?limit=10`);
         const res = await this.$axios.get(`/api/posts`);
 
-        // console.log('res.data : ', res.data);
+        console.log('res.data : ', res.data);
         // console.log('res.data : ', res.data._embedded.postList);
 
         commit('loadPosts', {

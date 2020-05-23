@@ -3,7 +3,9 @@
     <post-images :images="post.Images || []" />
     <v-card-title>
       <h3 class="headline mb-0">
-        <nuxt-link :to="'/user/' + post.user.id">{{post.user.nickname}}</nuxt-link>
+        <!-- <nuxt-link :to="'/user/' + post.user.id"> -->
+        <!-- {{post.user.nickname}} -->
+        <!-- </nuxt-link> -->
         <v-btn v-if="canFollow && me" small @click="onFollow">팔로우</v-btn>
         <v-btn v-else-if="canUnfollow && me" small @click="onUnfollow">언팔로우</v-btn>
       </h3>

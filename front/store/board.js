@@ -57,11 +57,10 @@ export const actions = {
                 params : {
                     page: parseInt(payload.params.page) -1,
                     size: payload.params.itemsPerPage == -1 ? state.mainBoards.page.totalElements : payload.params.itemsPerPage,
-                    sort: 'id,asc'
+                    sort: 'id,asc',
                 }
             };
             const res = await this.$axios.get(`/api/boards/${payload.web}`, convertPayload);
-            console.log("res :::: " , res);            
             await commit('loadBoards', res.data);
           } catch (err) {
             console.error(err);
@@ -70,15 +69,13 @@ export const actions = {
     // 글작성
     async getSelenium({ commit, state }, payload) {
         try {
-            console.log('getSelenium : ', payload.params);
             this.$axios.post(`/api/selenium/${payload.params.web}`, {
                     id: payload.params.id,
                     url: payload.params.url,
-                    // url: 'https://bbs.ruliweb.com/best/board/300143/read/45472533',
                     title: payload.params.title,
+                    category : payload.params.category,
                 })
                 .then(()=> {
-                    console.log('글작성 완료 후 : ', res.data);
                     // commit('removeBoards', payload);
                 })
                 .catch(( err ) => {
@@ -103,7 +100,6 @@ export const actions = {
 
             await this.$axios.get(`/api/batch/${payload.params}/${payload.type}`, convertPayload)
             .then((res)=> {
-                console.log("res.data refresh : ", res.data);
                 commit('loadBoards', res.data);
             })
             .catch(() => {
@@ -121,7 +117,6 @@ export const actions = {
             };
             await this.$axios.post(`/api/batch/duplication`, search)
             .then((res)=> {
-                console.log("checkDuplication : ", res.data);
                 commit('checkDuplication', res.data);
             })
             .catch(() => {
