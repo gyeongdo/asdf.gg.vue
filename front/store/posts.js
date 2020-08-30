@@ -31,9 +31,7 @@ export const mutations = {
   loadPosts(state, payload) {
     if (payload.reset) {
       state.mainPosts = payload.data;
-      // console.log('reset', state.mainPosts);
     } else {
-      console.log('else');
       state.mainPosts = state.mainPosts.concat(payload.data);
     }
     // state.hasMorePost = payload.data.length === 10;
@@ -69,7 +67,6 @@ export const actions = {
     // }
     )
       .then((res) => {
-        console.log('res.data : ', res.data);
         commit('addMainPost', res.data);
       })
       .catch(() => {
@@ -94,7 +91,6 @@ export const actions = {
       withCredentials: true,
     })
       .then((res) => {
-        console.log('addComment');
         commit('addComment', res.data);
       })
       .catch(() => {
@@ -124,17 +120,12 @@ export const actions = {
   },
   
   loadPosts: throttle(async function ({ commit, state }, payload) {
-    console.log('loadPosts111');
     try {
       if (payload && payload.reset) {
-        // const res = await this.$axios.get(`/posts?limit=10`);
         const res = await this.$axios.get(`/api/posts`);
 
-        console.log('res.data : ', res.data);
-        // console.log('res.data : ', res.data._embedded.postList);
 
         commit('loadPosts', {
-          // data: res.data,
           data: res.data._embedded.postList,
           reset: true,
         });
@@ -239,7 +230,6 @@ export const actions = {
       withCredentials: true,
     })
       .then((res) => {
-        console.log('unlikePost');
         commit('unlikePost', {
           userId: res.data.userId,
           postId: payload.postId,

@@ -26,7 +26,6 @@ export const actions = {
     },
     // boardDetail update
     boardUpdate({commit, state}, payload){
-        console.log('action boardUpdate : ', payload);
         try{
             const res = this.$axios.patch(`/boardDetail/${payload.id}`
             ,{ payload }

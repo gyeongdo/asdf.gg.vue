@@ -64,7 +64,6 @@ export const mutations = {
 
 export const actions = {
   async loadUser({ state, commit }) {
-    console.log('loadUser');
     try {
       const res = await this.$axios.get('/user', {
         withCredentials: true,
@@ -85,14 +84,19 @@ export const actions = {
     }
   },
   signUp({ commit, state }, payload) {
-    this.$axios.post('/user', {
-      userId: payload.userId,
+    this.$axios.post('/api/userCreate', {
+      email: payload.userId,
       nickname: payload.nickname,
       password: payload.password,
     }, {
-      withCredentials: true,
+       headers: {
+         'Content-Type': 'application/json',
+       }
+    }, {
+      withCredentials: false,
     })
       .then((res) => {
+        console.log('signup then');
         commit('setMe', res.data);
       })
       .catch((err) => {
@@ -100,7 +104,6 @@ export const actions = {
       });
   },
   async logIn({ commit }, payload) {
-    console.log('action login1');
     await this.$axios.post('/user/login', {
       userId: payload.userId,
       password: payload.password,
@@ -109,7 +112,6 @@ export const actions = {
     })
       .then((res) => {
         commit('setMe', res.data);
-        console.log('me2');
       })
       .catch((err) => {
         console.error(err);

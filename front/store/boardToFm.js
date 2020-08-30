@@ -18,7 +18,6 @@ export const actions = {
 
         try {
             const res = await this.$axios.get(`/match/${payload.name}`);
-            console.log('res.data : ', res.data);
             await commit('matchLoads', res.data);
         } catch (err) {
             console.error(err);
