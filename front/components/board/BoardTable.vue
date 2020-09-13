@@ -159,18 +159,15 @@
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
-
-        
         if(type == '' && this.type == ''){
           alert('검색어를 입력해주세요');
           return false;
         } else if(type != '') {
           this.type = '';
-          console.log('type1 : ', type);
         } else if (type == '') {
           type = this.type;  
-          console.log('type2 : ', type);
         }
+        
         await this.$store.dispatch('board/getRefresh', { params: web, type})
           .then(()=> {
             const { sortBy, descending, page, rowsPerPage } = this.options

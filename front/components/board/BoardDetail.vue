@@ -1,6 +1,7 @@
 <template>
   <div>
     <board-table :parentMessage="urlParam" />
+    <board-table :parentMessage="myList" />
     <board-tableduple />
   </div>
 </template>
@@ -31,6 +32,9 @@
       urlParam() {
           return this.$route.params.id;
       },
+      myList() {
+        return 'myList'
+      }
     },
     methods: {
     

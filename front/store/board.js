@@ -16,39 +16,6 @@ export const mutations = {
 }
 
 export const actions = {
-    // boards 등록
-    // post({ commit, state }, payload) {
-    //     this.$axios.post('/board', {
-    //         name: payload.name,
-    //         calories: payload.calories,
-    //         fat: payload.fat,
-    //         carbs: payload.carbs,
-    //         protein: payload.protein,
-    //         iron: payload.iron,
-    //     }, {
-    //         withCredentials: true,
-    //     })
-    //         .then((res) => {
-    //             commit('addMainBoard', res.data);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });           
-    // },
-    // // board 테이블 삭제
-    // async deleteBoards({commit, state}, payload) {
-    //     try{
-    //         this.$axios.delete('/board/delete',payload,{ withCredentials: true,})
-    //         .then(() => {
-    //             commit('removeBoards', payload);
-    //           })
-    //         .catch(() => {
-
-    //         });
-    //     } catch(err) {
-    //         console.log(err);
-    //     }
-    // },
 
     // boards 테이블 조회
     async loadBoards({ commit, state}, payload) {

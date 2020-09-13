@@ -1,23 +1,4 @@
 <template>
-  <!-- <v-simple-table class="elevation-1" fixed-header height="300px"> -->
-    <!-- <table> -->
-    <!-- <template v-slot:default> -->
-      <!-- <thead>
-        <tr>
-          <th class="text-left">Name</th>
-          <th class="text-left">Calories</th>
-        </tr>
-      </thead>
-      <tbody> -->
-        <!-- <template v-if="checkDuplication.length != 0">
-          <tr v-for="list in checkDuplication.data.list" :key="list.name" class="clear">
-            <td><h4>{{ list.title }}</h4></td>
-          </tr>
-         </template> -->
-      <!--</tbody> -->
-    <!-- </template> -->
-  <!-- </v-simple-table> -->
-  <!-- </table> -->
   <v-container>
   <div class="bd_lst_wrp">
     <div class="tl_srch clear tl_srch_">
