@@ -42,7 +42,7 @@ export const actions = {
                     title: payload.params.title,
                     category : payload.params.category,
                 })
-                .then(()=> {
+                .then(()=> {                    
                     // commit('removeBoards', payload);
                 })
                 .catch(( err ) => {
@@ -77,7 +77,7 @@ export const actions = {
         }
     },
     // 중복 확인
-    async getDuplication({ commit, stats }, payload) {
+    async getDuplication({ commit, state }, payload) {
         try{
             const search = {
                 title: payload.params
@@ -92,7 +92,25 @@ export const actions = {
         } catch(err) {
             console.log(err);
         }
+    },
+    async deleteMylist({ commit, state }, payload) {
+        try{
+            const search = {
+                id: payload.params.id,
+                category: payload.params.web
+            };
+            await this.$axios.post(`/api/batch/deleteMylist`, search)
+            .then((res)=> {
+                commit('checkDuplication', res.data);
+            })
+            .catch(() => {
+
+            });
+        } catch(err) {
+            console.log(err);
+        }
     }
+    
     
 
 }

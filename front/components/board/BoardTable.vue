@@ -44,18 +44,16 @@
                 </v-card>
               </v-dialog>
             </v-toolbar>
-
             <v-spacer></v-spacer>
             <div>
-              
               <template>
                 <v-text-field v-model="type">
                   <v-icon slot="append" color="red">mdi-plus</v-icon>
                 </v-text-field>
                 <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, '')">검색</v-btn>
                 <v-btn color="primary" style="margin: 3px" dark class="mb-2" @click="refresh(parentMessage, 'best')">일반</v-btn>
+                <v-btn v-if="isMyList" color="primary" style="margin: 3px" dark class="mb-2" @click="deleteMylist()">삭제</v-btn>
               </template>
-
             </div>
           </template>
           
@@ -121,18 +119,19 @@
       }
     },
     // fetch({ store }) {
-    //   console.log('fetch1');
     //   return this.$store.dispatch('board/loadBoards', { params : this.params});
     // },
     computed: {
       me() {
         return this.$store.state.users.me;
       },
+      isMyList() {
+        return this.parentMessage === "myList"
+      }
     },
     watch: {
       options: {
         handler () {
-          console.log('watch1');
           this.getDataFromApi()
             .then(data => {
               this.desserts = data.items;
@@ -143,7 +142,6 @@
       }
     },
     async mounted () {
-      console.log('mounted1');
       await this.getDataFromApi()
         .then(data => {
           this.desserts = data.items;
@@ -156,6 +154,40 @@
           return title.slice(0,19) + '...';
         }
         return title;
+      },
+      // 내가 쓴 글 삭제하기
+      async deleteMylist() {
+
+        const conBtn = confirm("삭제하시겠습니까?");
+        if( conBtn ) {
+          console.log(conBtn);
+        } else {
+          return;
+        }
+        
+        let selId = [];
+        selId = this.selected.map(v => v.id);
+        
+
+        let url = "";
+        let title = "";
+        this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+            if(v.id === selId[0]) {
+              url = v.url;
+              title = v.title;
+            }
+        });
+        
+        var params = {
+          id: selId[0],
+          web: this.parentMessage,
+        };
+
+        await this.$store.dispatch('board/deleteMylist', { params })
+          .then(()=> {
+            
+          });
+        
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
@@ -176,7 +208,6 @@
             
             if (rowsPerPage > 0) {
               items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage)
-              console.log('items rowsPerPage : ', items);
             }
             this.loading = false
             this.desserts = items;
@@ -189,12 +220,10 @@
         await this.$store.dispatch('board/getDuplication', { params: this.selected[0].title, web })
         .then( () => {
             this.loading = false;
-            console.log("kength : ", this.$store.state.board.checkDuplication.data.list);
             if (this.$store.state.board.checkDuplication.data.list.length == 0) {
               alert("중복 없음");
               this.save();
             } else {
-              console.log('중복 있음')
             }
         });
         this.selected = [];
@@ -283,7 +312,6 @@
       },
       async getDataFromApi () {
         this.loading = true
-        console.log('새로고침');
         await this.$store.dispatch('board/loadBoards', { params : this.options, web: this.parentMessage })
           .then(()=>{
 
@@ -296,7 +324,6 @@
           
           if (rowsPerPage > 0) {
             items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage)
-            console.log('items rowsPerPage : ', items);
           }
           this.loading = false
           resolve({
