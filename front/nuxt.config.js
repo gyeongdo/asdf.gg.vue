@@ -45,13 +45,13 @@ module.exports = {
   vuetify: {},
   axios: {
     // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://58.122.14.161:8080' : 'http://58.122.14.161:8080',
-    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:8080',
+    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:8081' : 'http://localhost:8081',
     
     // baseURL: process.env.NODE_ENV === 'production' ? 'http://58.122.14.161:8080' : 'http://58.122.14.161:8080',
-    baseURL: process.env.NODE_ENV === 'production' ? 'http://api.veneziar.com' : 'http://localhost:8080',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:8081' : 'http://localhost:8081',
     https: false,
   }, 
   server: {
-    port: process.env.PORT || 3081,
+    port: process.env.PORT || 8080,
   },
 };
