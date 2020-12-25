@@ -44,6 +44,7 @@ module.exports = {
   },
   vuetify: {},
   axios: {
+<<<<<<< HEAD
     // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://58.122.14.161:8081' : 'http://58.122.14.161:8081',
     browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://175.125.217.115:8081/' : 'http://localhost:8090/',
     
@@ -53,5 +54,16 @@ module.exports = {
   }, 
   server: {
     port: process.env.PORT || 3000,
+=======
+    // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://58.122.14.161:8080' : 'http://58.122.14.161:8080',
+    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:8081' : 'http://localhost:8081',
+    
+    // baseURL: process.env.NODE_ENV === 'production' ? 'http://58.122.14.161:8080' : 'http://58.122.14.161:8080',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://localhost:8081' : 'http://localhost:8081',
+    https: false,
+  }, 
+  server: {
+    port: process.env.PORT || 8080,
+>>>>>>> 7e4c42eb244b66371a740bb0a76ea4893baf9578
   },
 };
