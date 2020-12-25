@@ -247,17 +247,22 @@
 
         var params = {};
         let selId = [];
-        selId = this.selected.map(v => v.id);
+        selId = await this.selected.map(v => v.id);
         
-
-        let url = "";
-        let title = "";
-        this.$store.state.board.mainBoards._embedded.boardList.map( v => {
-            if(v.id === selId[0]) {
-              url = v.url;
-              title = v.title;
+        let url = [];
+        let title = [];
+        
+        await this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+          selId.map((y, i) => {
+            if(v.id === selId[i]) {
+              url.push(v.url);
+              title.push(v.title);
             }
+          });
         });
+
+        url = url.join(',');
+        title = title.join(',');
 
         params = {
           id: selId[0],
