@@ -57,11 +57,11 @@
             </div>
           </template>
           
-          <template v-slot:item.url="{ item }">
+          <template v-slot:[`item.url`]="{ item }">
             <v-chip class="ma-2" small target="_blank" :href="item.url" color="#FF69B4" label text-color="white">{{ titleSlice(item.title) }}</v-chip>
           </template>
 
-          <template v-slot:item.time="{ item }">
+          <template v-slot:[`item.time`]="{ item }">
             <span class="ma-2" small label>시간: {{item.time}}  추천: {{item.recomd}}</span>
           </template>
 
