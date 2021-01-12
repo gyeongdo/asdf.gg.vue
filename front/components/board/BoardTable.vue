@@ -261,8 +261,8 @@
           });
         });
 
-        url = url.join(',');
-        title = title.join(',');
+        url = url.join('^');
+        title = title.join('^');
 
         params = {
           id: selId[0],
