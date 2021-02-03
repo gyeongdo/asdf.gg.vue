@@ -118,9 +118,9 @@
         ]
       }
     },
-    // fetch({ store }) {
-    //   return this.$store.dispatch('board/loadBoards', { params : this.params});
-    // },
+    fetch({ store }) {
+      return this.$store.dispatch('board/loadBoards', { params : this.params});
+    },
     computed: {
       me() {
         return this.$store.state.users.me;
@@ -171,7 +171,7 @@
 
         let url = "";
         let title = "";
-        this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+        this.$store.state.board.mainBoards.content.map( v => {
             if(v.id === selId[0]) {
               url = v.url;
               title = v.title;
@@ -191,7 +191,8 @@
       },
       // 갱신 버튼 클릭
       async refresh(web, type) {
-        if(type == '' && this.type == ''){
+        
+        if(type == '' && this.type == '') {
           alert('검색어를 입력해주세요');
           return false;
         } else if(type != '') {
@@ -201,10 +202,11 @@
         }
         
         await this.$store.dispatch('board/getRefresh', { params: web, type})
-          .then(()=> {
+          .then( () => {
             const { sortBy, descending, page, rowsPerPage } = this.options
-            let items = this.$store.state.board.mainBoards._embedded && this.$store.state.board.mainBoards._embedded.boardList;
-            let total = this.$store.state.board.mainBoards && this.$store.state.board.mainBoards.page.totalElements;
+
+            let items = this.$store.state.board.mainBoards.content;
+            let total = this.$store.state.board.mainBoards && this.$store.state.board.mainBoards.totalElements;
             
             if (rowsPerPage > 0) {
               items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage)
@@ -252,7 +254,7 @@
         let url = [];
         let title = [];
         
-        await this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+        await this.$store.state.board.mainBoards.content.map( v => {
           selId.map((y, i) => {
             if(v.id === selId[i]) {
               url.push(v.url);
@@ -289,7 +291,7 @@
 
         let url = "";
         let title = "";
-        this.$store.state.board.mainBoards._embedded.boardList.map( v => {
+        this.$store.state.board.mainBoards.content.map( v => {
             if(v.id === selId[0]) {
               url = v.url;
               title = v.title;
@@ -316,6 +318,7 @@
         // });
       },
       async getDataFromApi () {
+        console.log('@@@@ getDataFromApi : ')
         this.loading = true
         await this.$store.dispatch('board/loadBoards', { params : this.options, web: this.parentMessage })
           .then(()=>{
@@ -324,8 +327,8 @@
         return new Promise((resolve, reject) => {
           const { sortBy, descending, page, rowsPerPage } = this.options
           
-          let items = this.$store.state.board.mainBoards._embedded && this.$store.state.board.mainBoards._embedded.boardList;
-          let total = this.$store.state.board.mainBoards && this.$store.state.board.mainBoards.page.totalElements;
+          let items = this.$store.state.board.mainBoards && this.$store.state.board.mainBoards.content;
+          let total = this.$store.state.board.mainBoards && this.$store.state.board.mainBoards.totalElements;
           
           if (rowsPerPage > 0) {
             items = items.slice((page - 1) * rowsPerPage, page * rowsPerPage)

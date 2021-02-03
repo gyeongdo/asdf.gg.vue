@@ -44,11 +44,11 @@ module.exports = {
   },
   vuetify: {},
   axios: {
-    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://218.49.6.124:8081/' : 'http://localhost:8090/',
-    // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://218.49.6.124:8081/' : 'http://localhost:8090/',
+    browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://218.238.46.124:8081/' : 'http://localhost:8090/',
+    // browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://218.238.46.124:8081/' : 'http://localhost:8090/',
     
-    baseURL: process.env.NODE_ENV === 'production' ? 'http://218.49.6.124:8081/' : 'http://localhost:8090/',
-    // baseURL: process.env.NODE_ENV === 'production' ? 'http://218.49.6.124:8081/' : 'http://localhost:8090/',
+    baseURL: process.env.NODE_ENV === 'production' ? 'http://218.238.46.124:8081/' : 'http://localhost:8090/',
+    // baseURL: process.env.NODE_ENV === 'production' ? 'http://218.238.46.124:8081/' : 'http://localhost:8090/',
     https: false,
   }, 
   server: {

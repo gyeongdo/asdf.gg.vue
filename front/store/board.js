@@ -16,9 +16,9 @@ export const mutations = {
 }
 
 export const actions = {
-
     // boards 테이블 조회
     async loadBoards({ commit, state}, payload) {
+        
         try {
             var convertPayload = {
                 params : {
@@ -27,6 +27,7 @@ export const actions = {
                     sort: 'id,asc',
                 }
             };
+            
             const res = await this.$axios.get(`/api/boards/${payload.web}`, convertPayload);
             await commit('loadBoards', res.data);
           } catch (err) {
@@ -55,6 +56,7 @@ export const actions = {
     },
     // 배치 갱신
     async getRefresh({commit, stats}, payload) {
+        
         try{
             var convertPayload = {
                 params : {
@@ -65,13 +67,9 @@ export const actions = {
                 }
             };
 
-            await this.$axios.get(`/api/batch/${payload.params}/${payload.type}`, convertPayload)
-            .then((res)=> {
-                commit('loadBoards', res.data);
-            })
-            .catch(() => {
-
-            });
+            const res = await this.$axios.get(`/api/batch/${payload.params}/${payload.type}`, convertPayload)
+            await commit('loadBoards', res.data)
+            
         } catch(err) {
             console.log(err);
         }
@@ -93,6 +91,7 @@ export const actions = {
             console.log(err);
         }
     },
+    // 내가 쓴글 삭제하기
     async deleteMylist({ commit, state }, payload) {
         try{
             const search = {
