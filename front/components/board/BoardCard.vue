@@ -21,45 +21,7 @@
       label="Calories"
       required
     ></v-text-field>
-
-    <!-- <v-text-field
-      v-model="fat"
-      :counter="10"
-      :rules="nameRules"
-      label="Fat"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="carbs"
-      :counter="10"
-      :rules="nameRules"
-      label="Carbs"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="protein"
-      :rules="nameRules"
-      label="Protein"
-      required
-    ></v-text-field>
-
-    <v-text-field
-      v-model="iron"
-      :rules="nameRules"
-      label="iron"
-      required
-    ></v-text-field> -->
-
-    <!-- <v-select
-      v-model="select"
-      :items="items"
-      :rules="[v => !!v || 'Item is required']"
-      label="Iron"
-      required
-    ></v-select> -->
-
+    
     <v-checkbox
       v-model="checkbox"
       :rules="[v => !!v || 'You must agree to continue!']"

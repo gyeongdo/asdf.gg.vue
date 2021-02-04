@@ -68,10 +68,6 @@
 
        </v-data-table>
       </div>
-
-      <!-- 중복체크 테이블 -->
-
-      
     </v-container>
 </template>
 
@@ -318,7 +314,6 @@
         // });
       },
       async getDataFromApi () {
-        console.log('@@@@ getDataFromApi : ')
         this.loading = true
         await this.$store.dispatch('board/loadBoards', { params : this.options, web: this.parentMessage })
           .then(()=>{
@@ -346,11 +341,15 @@
 
 <style>
 .v-data-table__mobile-row {
- display: flex; 
+ /* display: flex;  */
 }
 .v-data-table__mobile-row__cell{
-  font-size: 12px;
+  font-size: 14px;
   color: #356859 !important;
 }
+.v-icon.v-icon {
+  font-size: 34px !important;
+}
+
 
 </style>
