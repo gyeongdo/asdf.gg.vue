@@ -65,6 +65,10 @@
             <span class="ma-2" small label>시간: {{item.time}}  추천: {{item.recomd}}</span>
           </template>
 
+          <template v-slot:[`item.boardOriginName`]="{ item }">
+            <span class="ma-2" small label>type : {{item.boardOriginName}}</span>
+          </template>
+
 
        </v-data-table>
       </div>
@@ -110,6 +114,10 @@
           { 
             text: 'info',
             value: 'time'
+          },
+          { 
+            text: 'type',
+            value: 'boardOriginName'
           },
         ]
       }
@@ -249,24 +257,28 @@
         
         let url = [];
         let title = [];
+        let boardOriginName = [];
         
         await this.$store.state.board.mainBoards.content.map( v => {
           selId.map((y, i) => {
             if(v.id === selId[i]) {
               url.push(v.url);
               title.push(v.title);
+              boardOriginName.push(v.boardOriginName);
             }
           });
         });
 
         url = url.join('^');
         title = title.join('^');
+        boardOriginName = boardOriginName.join('^');
 
         params = {
           id: selId[0],
           web: this.parentMessage,
           title,
           url,
+          boardOriginName,
           category : 'humor'
         };
 

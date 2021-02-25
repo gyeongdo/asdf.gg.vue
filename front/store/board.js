@@ -41,6 +41,7 @@ export const actions = {
                     id: payload.params.id,
                     url: payload.params.url,
                     title: payload.params.title,
+                    boardOriginName: payload.params.boardOriginName,
                     category : payload.params.category,
                 })
                 .then(()=> {                    
